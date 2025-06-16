@@ -1,14 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Settings } from 'lucide-react';
 
 export default function Header() {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if admin is logged in
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch('/api/auth/verify', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setIsAdmin(data.user?.role === 'admin');
+        } else {
+          setIsAdmin(false);
+        }
+      } catch {
+        setIsAdmin(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'gr' : 'en';
@@ -49,6 +73,17 @@ export default function Header() {
               </Link>
             ))}
 
+            {/* Admin Button - Desktop */}
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="flex items-center space-x-1 bg-orange-600 hover:bg-orange-700 px-3 py-2 rounded-md transition-colors"
+              >
+                <Settings size={16} />
+                <span>Admin</span>
+              </Link>
+            )}
+
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
@@ -82,6 +117,18 @@ export default function Header() {
                   {t(`nav.${item.key}`)}
                 </Link>
               ))}
+
+              {/* Admin Button - Mobile */}
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  className="flex items-center space-x-1 bg-orange-600 hover:bg-orange-700 px-3 py-2 rounded-md transition-colors w-fit"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Settings size={16} />
+                  <span>Admin</span>
+                </Link>
+              )}
 
               <button
                 onClick={toggleLanguage}

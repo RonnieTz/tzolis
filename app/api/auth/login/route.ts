@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     await dbConnect();
 
-    const { username, password } = await request.json();
+    const { username, password, rememberMe } = await request.json();
 
     if (!username || !password) {
       return NextResponse.json(
@@ -35,10 +35,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Set token expiration based on rememberMe option
+    const expiresIn = rememberMe ? '30d' : '24h';
+    const maxAge = rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60; // 30 days or 24 hours in seconds
+
     const token = jwt.sign(
       { userId: user._id, username: user.username, role: user.role },
       process.env.JWT_SECRET!,
-      { expiresIn: '24h' }
+      { expiresIn }
     );
 
     const response = NextResponse.json(
@@ -53,7 +57,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 86400, // 24 hours
+      maxAge,
     });
 
     return response;

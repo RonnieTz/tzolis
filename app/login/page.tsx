@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -11,9 +11,23 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    rememberMe: false,
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Load saved username if rememberMe was previously checked
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('rememberedUsername');
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
+    if (savedUsername && rememberMe) {
+      setFormData((prev) => ({
+        ...prev,
+        username: savedUsername,
+        rememberMe: true,
+      }));
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +44,15 @@ export default function LoginPage() {
       });
 
       if (response.ok) {
+        // Save username to localStorage if rememberMe is checked
+        if (formData.rememberMe) {
+          localStorage.setItem('rememberedUsername', formData.username);
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          localStorage.removeItem('rememberedUsername');
+          localStorage.removeItem('rememberMe');
+        }
+
         router.push('/admin');
       } else {
         const data = await response.json();
@@ -43,9 +66,10 @@ export default function LoginPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, type, checked, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
@@ -94,6 +118,23 @@ export default function LoginPage() {
                 onChange={handleChange}
               />
             </div>
+          </div>
+
+          <div className="flex items-center">
+            <input
+              id="rememberMe"
+              name="rememberMe"
+              type="checkbox"
+              className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+              checked={formData.rememberMe}
+              onChange={handleChange}
+            />
+            <label
+              htmlFor="rememberMe"
+              className="ml-2 block text-sm text-gray-900"
+            >
+              Remember me on this device
+            </label>
           </div>
 
           {error && (

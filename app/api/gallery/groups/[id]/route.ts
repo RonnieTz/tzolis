@@ -133,3 +133,70 @@ export async function POST(
     );
   }
 }
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const user = verifyToken(request);
+    if (!user || user.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { filename } = await request.json();
+    if (!filename) {
+      return NextResponse.json(
+        { error: 'Filename is required' },
+        { status: 400 }
+      );
+    }
+
+    await dbConnect();
+
+    const group = await GalleryGroup.findById(id);
+    if (!group) {
+      return NextResponse.json(
+        { error: 'Gallery group not found' },
+        { status: 404 }
+      );
+    }
+
+    // Find the image to delete
+    const imageIndex = group.images.findIndex(
+      (image: { filename: string }) => image.filename === filename
+    );
+
+    if (imageIndex === -1) {
+      return NextResponse.json({ error: 'Image not found' }, { status: 404 });
+    }
+
+    // Delete image from Firebase Storage
+    try {
+      const imageRef = ref(storage, `gallery/${group._id}/${filename}`);
+      await deleteObject(imageRef);
+    } catch (error) {
+      console.error('Error deleting image from Firebase:', error);
+      return NextResponse.json(
+        { error: 'Failed to delete image from storage' },
+        { status: 500 }
+      );
+    }
+
+    // Remove image from database
+    group.images.splice(imageIndex, 1);
+    await group.save();
+
+    return NextResponse.json({
+      message: 'Image deleted successfully',
+      filename,
+    });
+  } catch (error) {
+    console.error('Image deletion error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
