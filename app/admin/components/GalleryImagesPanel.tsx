@@ -50,7 +50,6 @@ export default function GalleryImagesPanel({
               type="file"
               multiple
               accept="image/*,image/heic,image/heif"
-              capture="environment"
               onChange={onFileUpload}
               className="hidden"
             />
