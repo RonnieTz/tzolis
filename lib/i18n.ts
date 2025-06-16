@@ -101,6 +101,11 @@ const resources = {
         name: 'Name',
         message: 'Message',
         send: 'Send Message',
+        addressContent: {
+          line1: 'Moshohori',
+          line2: 'Lamia, Greece',
+          line3: '35100',
+        },
       },
       login: {
         title: 'Admin Login',
@@ -220,6 +225,11 @@ const resources = {
         name: 'Όνομα',
         message: 'Μήνυμα',
         send: 'Αποστολή Μηνύματος',
+        addressContent: {
+          line1: 'Μοσχοχώρι',
+          line2: 'Λαμία, Ελλάδα',
+          line3: '35100',
+        },
       },
       login: {
         title: 'Σύνδεση Διαχειριστή',

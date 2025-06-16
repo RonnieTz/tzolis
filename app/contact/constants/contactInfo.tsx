@@ -3,24 +3,24 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 export interface ContactInfoItem {
   icon: React.ReactNode;
   title: string;
-  content: string[];
+  content: string[] | 'address';
 }
 
 export const contactInfoData: ContactInfoItem[] = [
   {
     icon: <MapPin className="w-6 h-6" />,
     title: 'contact.address',
-    content: ['123 Industrial Street', 'Athens, Greece', '10431'],
+    content: 'address', // Special marker for dynamic address content
   },
   {
     icon: <Phone className="w-6 h-6" />,
     title: 'contact.phone',
-    content: ['+30 210 123 4567', '+30 694 567 8901'],
+    content: ['+30 22310 81394', '+30 6837144985'],
   },
   {
     icon: <Mail className="w-6 h-6" />,
     title: 'contact.email',
-    content: ['info@tzoliswelding.gr', 'projects@tzoliswelding.gr'],
+    content: ['leotzolis@gmail.com'],
   },
   {
     icon: <Clock className="w-6 h-6" />,

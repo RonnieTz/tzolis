@@ -48,14 +48,17 @@ export default function GalleryGroupsPanel({
 
   return (
     <div className="lg:col-span-1">
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">{t('admin.galleries')}</h2>
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 space-y-2 sm:space-y-0">
+          <h2 className="text-lg sm:text-xl font-semibold">
+            {t('admin.galleries')}
+          </h2>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-orange-500 text-white p-2 rounded-lg hover:bg-orange-600 transition-colors"
+            className="bg-orange-500 text-white p-2 rounded-lg hover:bg-orange-600 transition-colors w-full sm:w-auto flex items-center justify-center"
           >
             <Plus size={20} />
+            <span className="ml-2 sm:hidden">Add Gallery</span>
           </button>
         </div>
 
@@ -63,12 +66,12 @@ export default function GalleryGroupsPanel({
         {showCreateForm && (
           <motion.form
             onSubmit={handleCreateGroup}
-            className="mb-6 p-4 border rounded-lg"
+            className="mb-6 p-3 sm:p-4 border rounded-lg"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            <h3 className="text-lg font-medium mb-3">
+            <h3 className="text-base sm:text-lg font-medium mb-3">
               {t('admin.createGroup')}
             </h3>
             <div className="space-y-3">
@@ -79,7 +82,7 @@ export default function GalleryGroupsPanel({
                 onChange={(e) =>
                   setNewGroup({ ...newGroup, name: e.target.value })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
                 required
               />
               <input
@@ -89,7 +92,7 @@ export default function GalleryGroupsPanel({
                 onChange={(e) =>
                   setNewGroup({ ...newGroup, nameGr: e.target.value })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
                 required
               />
               <textarea
@@ -101,7 +104,7 @@ export default function GalleryGroupsPanel({
                     description: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
                 rows={2}
               />
               <textarea
@@ -113,20 +116,20 @@ export default function GalleryGroupsPanel({
                     descriptionGr: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
                 rows={2}
               />
-              <div className="flex space-x-2">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                 <button
                   type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm sm:text-base w-full sm:w-auto"
                 >
                   Create
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowCreateForm(false)}
-                  className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+                  className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base w-full sm:w-auto"
                 >
                   Cancel
                 </button>
@@ -150,11 +153,11 @@ export default function GalleryGroupsPanel({
                 onClick={() => onSelectGroup(group._id)}
                 className="flex justify-between items-center"
               >
-                <div>
-                  <div className="font-medium">
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-sm sm:text-base truncate">
                     {i18n.language === 'gr' ? group.nameGr : group.name}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-xs sm:text-sm text-gray-500">
                     {group.images.length} images
                   </div>
                 </div>
@@ -163,7 +166,7 @@ export default function GalleryGroupsPanel({
                     e.stopPropagation();
                     handleDeleteGroup(group._id);
                   }}
-                  className="text-red-500 hover:text-red-700 p-1"
+                  className="text-red-500 hover:text-red-700 p-1 ml-2 flex-shrink-0"
                 >
                   <Trash2 size={16} />
                 </button>

@@ -100,35 +100,109 @@ export async function POST(
     }
 
     const uploadedImages = [];
+    const errors = [];
+    const maxFileSize = 10 * 1024 * 1024; // 10MB
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/webp',
+      'image/heic',
+      'image/heif',
+    ];
 
     for (const file of files) {
-      if (file.size === 0) continue;
+      try {
+        // Skip empty files
+        if (file.size === 0) {
+          errors.push(`File "${file.name}" is empty and was skipped`);
+          continue;
+        }
 
-      const filename = `${Date.now()}-${file.name}`;
-      const storageRef = ref(storage, `gallery/${group._id}/${filename}`);
+        // Check file size
+        if (file.size > maxFileSize) {
+          errors.push(`File "${file.name}" is too large (max 10MB)`);
+          continue;
+        }
 
-      const buffer = await file.arrayBuffer();
-      const snapshot = await uploadBytes(storageRef, buffer);
-      const downloadURL = await getDownloadURL(snapshot.ref);
+        // Check MIME type
+        if (!allowedMimeTypes.includes(file.type.toLowerCase())) {
+          errors.push(
+            `File "${file.name}" has unsupported format (${file.type})`
+          );
+          continue;
+        }
 
-      uploadedImages.push({
-        url: downloadURL,
-        filename: filename,
-        uploadedAt: new Date(),
-      });
+        // Generate unique filename
+        const timestamp = Date.now();
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const fileExtension =
+          file.name.split('.').pop()?.toLowerCase() || 'jpg';
+        const filename = `${timestamp}-${randomSuffix}.${fileExtension}`;
+
+        const storageRef = ref(storage, `gallery/${group._id}/${filename}`);
+
+        const buffer = await file.arrayBuffer();
+
+        // Additional validation: ensure buffer is not empty
+        if (buffer.byteLength === 0) {
+          errors.push(`File "${file.name}" appears to be corrupted`);
+          continue;
+        }
+
+        const snapshot = await uploadBytes(storageRef, buffer, {
+          contentType: file.type,
+        });
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        uploadedImages.push({
+          url: downloadURL,
+          filename: filename,
+          uploadedAt: new Date(),
+        });
+      } catch (fileError) {
+        console.error(`Error processing file ${file.name}:`, fileError);
+        errors.push(
+          `Failed to upload "${file.name}": ${
+            fileError instanceof Error ? fileError.message : 'Unknown error'
+          }`
+        );
+      }
     }
 
-    group.images.push(...uploadedImages);
-    await group.save();
+    // Save successfully uploaded images
+    if (uploadedImages.length > 0) {
+      group.images.push(...uploadedImages);
+      await group.save();
+    }
 
-    return NextResponse.json({
-      message: 'Images uploaded successfully',
+    // Return response with both successes and errors
+    const response: {
+      message: string;
+      images: typeof uploadedImages;
+      uploadedCount: number;
+      totalCount: number;
+      warnings?: string[];
+    } = {
+      message: `Successfully uploaded ${uploadedImages.length} image(s)`,
       images: uploadedImages,
-    });
+      uploadedCount: uploadedImages.length,
+      totalCount: files.length,
+    };
+
+    if (errors.length > 0) {
+      response.warnings = errors;
+      response.message += `. ${errors.length} file(s) had issues.`;
+    }
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Image upload error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: 'Internal server error',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
       { status: 500 }
     );
   }
