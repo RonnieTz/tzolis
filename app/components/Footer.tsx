@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Tzolis Welding</h3>
+            <h3 className="text-xl font-bold mb-4">Tzolis Kataskeves</h3>
             <p className="text-gray-300 mb-4">{t('home.description')}</p>
           </div>
 
@@ -22,15 +22,15 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <MapPin size={16} />
-                <span>Athens, Greece</span>
+                <span>Lamia, Greece</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone size={16} />
-                <span>+30 210 123 4567</span>
+                <span>+30 22310 81394</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail size={16} />
-                <span>info@tzoliswelding.gr</span>
+                <span>leotzolis@gmail.com</span>
               </div>
             </div>
           </div>
