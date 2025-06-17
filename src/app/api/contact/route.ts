@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_USER, // Your email address
-        to: 'leotzolis@gmail.com', // Replace with your actual email
+        to: 'contact@tzolis.gr', // Replace with your actual email
         subject: `Contact Form: ${subject}`,
         html: emailContent,
         replyTo: email, // This allows you to reply directly to the person who submitted the form

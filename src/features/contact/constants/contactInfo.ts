@@ -16,7 +16,7 @@ export const contactInfoData: ContactInfoItem[] = [
   {
     icon: React.createElement(Mail, { size: 24 }),
     title: 'contact.email',
-    content: ['info@tzolis.gr', 'contact@tzolis.gr'],
+    content: ['contact@tzolis.gr'],
   },
   {
     icon: React.createElement(MapPin, { size: 24 }),
