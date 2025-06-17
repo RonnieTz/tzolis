@@ -16,20 +16,18 @@ export default function ContactForm() {
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        Send us a Message
+        {t('contact.sendMessage')}
       </h2>
 
       {submitStatus === 'success' && (
         <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-          Thank you for your message! We&apos;ll get back to you within 24
-          hours.
+          {t('contact.successMessage')}
         </div>
       )}
 
       {submitStatus === 'error' && (
         <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-          Sorry, there was an error sending your message. Please try again or
-          contact us directly.
+          {t('contact.errorMessage')}
         </div>
       )}
 
@@ -50,7 +48,7 @@ export default function ContactForm() {
               value={formData.name}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
-              placeholder="Your full name"
+              placeholder={t('contact.namePlaceholder')}
             />
           </div>
           <div>
@@ -68,7 +66,7 @@ export default function ContactForm() {
               value={formData.email}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
-              placeholder="your@email.com"
+              placeholder={t('contact.emailPlaceholder')}
             />
           </div>
         </div>
@@ -88,7 +86,7 @@ export default function ContactForm() {
               value={formData.phone}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
-              placeholder="+30 210 123 4567"
+              placeholder={t('contact.phonePlaceholder')}
             />
           </div>
           <div>
@@ -96,7 +94,7 @@ export default function ContactForm() {
               htmlFor="subject"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Subject *
+              {t('contact.subject')} *
             </label>
             <input
               type="text"
@@ -106,7 +104,7 @@ export default function ContactForm() {
               value={formData.subject}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
-              placeholder="Project inquiry, quote request, etc."
+              placeholder={t('contact.subjectPlaceholder')}
             />
           </div>
         </div>
@@ -126,7 +124,7 @@ export default function ContactForm() {
             value={formData.message}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
-            placeholder="Please describe your project requirements..."
+            placeholder={t('contact.messagePlaceholder')}
           />
         </div>
 
@@ -138,7 +136,7 @@ export default function ContactForm() {
           {isSubmitting ? (
             <>
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-              <span>Sending...</span>
+              <span>{t('contact.sending')}</span>
             </>
           ) : (
             <>

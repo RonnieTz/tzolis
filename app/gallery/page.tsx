@@ -39,10 +39,10 @@ export default function GalleryPage() {
               <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
             </div>
             <div className="text-xl font-medium text-gray-700 mb-2">
-              Loading gallery...
+              {t('gallery.loading')}
             </div>
             <div className="text-sm text-gray-500">
-              Preparing your visual experience
+              {t('gallery.loadingSubtext')}
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function GalleryPage() {
             </h1>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6"></div>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover our curated collection of stunning visuals
+              {t('gallery.description')}
             </p>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function GalleryPage() {
               </svg>
             </div>
             <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-              No Images Available
+              {t('gallery.noImagesAvailable')}
             </h3>
             <p className="text-gray-500">{t('gallery.noImages')}</p>
           </div>

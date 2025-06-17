@@ -106,7 +106,7 @@ export default function ContactMap() {
           <div className="bg-gray-100 h-96 rounded-lg flex items-center justify-center">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading map...</p>
+              <p className="text-gray-600">{t('contact.loadingMap')}</p>
             </div>
           </div>
         );
@@ -129,17 +129,22 @@ export default function ContactMap() {
                 </svg>
               </div>
               <p className="text-gray-600 text-lg font-medium mb-2">
-                Unable to load map
+                {t('contact.mapLoadError')}
               </p>
               <p className="text-gray-500 text-sm mb-4">
-                Please check your internet connection or try refreshing the page
+                {t('contact.mapErrorDescription')}
               </p>
               <div className="bg-white p-4 rounded-lg border">
                 <p className="text-sm text-gray-700 font-medium mb-1">
-                  Our Location:
+                  {t('contact.ourLocation')}
                 </p>
-                <p className="text-sm text-gray-600">123 Industrial Street</p>
-                <p className="text-sm text-gray-600">Athens, Greece 10431</p>
+                <p className="text-sm text-gray-600">
+                  {t('contact.addressContent.line1')}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {t('contact.addressContent.line2')}{' '}
+                  {t('contact.addressContent.line3')}
+                </p>
               </div>
             </div>
           </div>
@@ -160,11 +165,10 @@ export default function ContactMap() {
     >
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">
-          {t('contact.findUs') || 'Find Us'}
+          {t('contact.findUs')}
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Visit our workshop in the heart of Athens. We&apos;re easily
-          accessible by car or public transport.
+          {t('contact.mapDescription')}
         </p>
       </div>
 
@@ -181,19 +185,28 @@ export default function ContactMap() {
         <div className="p-6 bg-gray-50 border-t">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="text-center md:text-left">
-              <h4 className="font-semibold text-gray-800 mb-1">Address</h4>
-              <p className="text-gray-600">123 Industrial Street</p>
-              <p className="text-gray-600">Athens, Greece 10431</p>
+              <h4 className="font-semibold text-gray-800 mb-1">
+                {t('contact.address')}
+              </h4>
+              <p className="text-gray-600">
+                {t('contact.addressContent.line1')}
+              </p>
+              <p className="text-gray-600">
+                {t('contact.addressContent.line2')}{' '}
+                {t('contact.addressContent.line3')}
+              </p>
             </div>
             <div className="text-center">
-              <h4 className="font-semibold text-gray-800 mb-1">Directions</h4>
+              <h4 className="font-semibold text-gray-800 mb-1">
+                {t('contact.directions')}
+              </h4>
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${center.lat},${center.lng}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium"
               >
-                Get Directions
+                {t('contact.getDirections')}
                 <svg
                   className="w-4 h-4 ml-1"
                   fill="none"
@@ -204,15 +217,16 @@ export default function ContactMap() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                   />
                 </svg>
               </a>
             </div>
             <div className="text-center md:text-right">
-              <h4 className="font-semibold text-gray-800 mb-1">Parking</h4>
-              <p className="text-gray-600">Free parking available</p>
-              <p className="text-gray-600">on-site for customers</p>
+              <h4 className="font-semibold text-gray-800 mb-1">
+                {t('contact.parking')}
+              </h4>
+              <p className="text-gray-600">{t('contact.parkingInfo')}</p>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 export interface ContactInfoItem {
   icon: React.ReactNode;
   title: string;
-  content: string[] | 'address';
+  content: string[] | 'address' | 'businessHours';
 }
 
 export const contactInfoData: ContactInfoItem[] = [
@@ -24,11 +24,7 @@ export const contactInfoData: ContactInfoItem[] = [
   },
   {
     icon: <Clock className="w-6 h-6" />,
-    title: 'Business Hours',
-    content: [
-      'Monday - Friday: 8:00 AM - 6:00 PM',
-      'Saturday: 9:00 AM - 3:00 PM',
-      'Sunday: Emergency Only',
-    ],
+    title: 'contact.businessHours',
+    content: 'businessHours', // Special marker for dynamic business hours content
   },
 ];

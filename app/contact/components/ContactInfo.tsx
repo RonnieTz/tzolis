@@ -14,6 +14,14 @@ export default function ContactInfo() {
         t('contact.addressContent.line3'),
       ];
     }
+    if (item.content === 'businessHours') {
+      // Return translated business hours content
+      return [
+        t('contact.businessHoursContent.weekdays'),
+        t('contact.businessHoursContent.saturday'),
+        t('contact.businessHoursContent.sunday'),
+      ];
+    }
     return item.content as string[];
   };
 
@@ -23,7 +31,9 @@ export default function ContactInfo() {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Get In Touch</h2>
+      <h2 className="text-3xl font-bold text-gray-800 mb-8">
+        {t('contact.getInTouch')}
+      </h2>
 
       <div className="space-y-6">
         {contactInfoData.map((item: ContactInfoItem, index: number) => (
