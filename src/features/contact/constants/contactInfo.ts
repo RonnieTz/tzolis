@@ -11,7 +11,7 @@ export const contactInfoData: ContactInfoItem[] = [
   {
     icon: React.createElement(Phone, { size: 24 }),
     title: 'contact.phone',
-    content: ['+30 2310 123456', '+30 6912 345678'],
+    content: ['+30 22310 81394', '+30 6937144085'],
   },
   {
     icon: React.createElement(Mail, { size: 24 }),
