@@ -1,16 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import dbConnect from '@/lib/mongodb';
 import Contact from '@/models/Contact';
 
-// Create Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // You can change this to other services like 'outlook', 'yahoo', etc.
-  auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_APP_PASSWORD, // Your email app password (not regular password)
-  },
-});
+// Create Resend instance
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     await contactMessage.save();
 
-    // Send email notification via Nodemailer
+    // Send email notification via Resend
     const emailContent = `
       <h2>New Contact Form Submission</h2>
       <p><strong>Name:</strong> ${name}</p>
@@ -52,12 +46,12 @@ export async function POST(request: NextRequest) {
     `;
 
     try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER, // Your email address
-        to: 'contact@tzolis.gr', // Replace with your actual email
+      await resend.emails.send({
+        from: 'noreply@tzolis.gr', // Replace with your verified domain
+        to: 'contact@tzolis.gr',
         subject: `Contact Form: ${subject}`,
         html: emailContent,
-        replyTo: email, // This allows you to reply directly to the person who submitted the form
+        replyTo: email,
       });
     } catch (emailError) {
       console.error('Email sending failed:', emailError);

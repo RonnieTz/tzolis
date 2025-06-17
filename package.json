@@ -13,7 +13,6 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/google.maps": "^3.58.1",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/nodemailer": "^6.4.17",
     "bcryptjs": "^3.0.2",
     "firebase": "^11.9.1",
     "framer-motion": "^12.18.1",
@@ -23,10 +22,10 @@
     "mongoose": "^8.15.2",
     "next": "15.3.3",
     "next-auth": "^4.24.11",
-    "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-i18next": "^15.5.3"
+    "react-i18next": "^15.5.3",
+    "resend": "^4.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
