@@ -30,7 +30,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail size={16} />
-                <span>leotzolis@gmail.com</span>
+                <span>contact@tzolis.gr</span>
               </div>
             </div>
           </div>
