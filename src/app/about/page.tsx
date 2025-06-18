@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Wrench,
-  Shield,
-  Award,
-  Users,
   Factory,
   Cog,
   Settings,
+  Shield,
+  Award,
+  Users,
 } from 'lucide-react';
 
 export default function AboutPage() {
