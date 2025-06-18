@@ -21,6 +21,7 @@ import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import About from '@/components/home/About';
 import Contact from '@/components/home/Contact';
+import PrivacyNotice from '@/components/home/PrivacyNotice';
 
 export default function HomePage() {
   return (
@@ -29,6 +30,7 @@ export default function HomePage() {
       <Services />
       <About />
       <Contact />
+      <PrivacyNotice />
     </main>
   );
 }

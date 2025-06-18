@@ -96,4 +96,10 @@ export const home = {
     title: 'Ready to Start Your Project?',
     subtitle: 'Contact us today for a free consultation and quote',
   },
+  privacy: {
+    title: 'Privacy Notice',
+    message:
+      'We respect your privacy. This website does not collect, store, or process any personal data or use cookies for tracking purposes.',
+    understand: 'I Understand',
+  },
 };
