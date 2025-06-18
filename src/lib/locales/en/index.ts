@@ -5,3 +5,4 @@ export { gallery } from './gallery';
 export { contact } from './contact';
 export { login } from './login';
 export { admin } from './admin';
+export { terms } from './terms';

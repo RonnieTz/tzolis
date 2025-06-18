@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -48,6 +49,14 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+          <div className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4 mb-4">
+            <Link
+              href="/terms-and-conditions"
+              className="hover:text-blue-400 transition-colors"
+            >
+              {t('terms.title')}
+            </Link>
+          </div>
           <p>&copy; 2025 {t('nav.company.fullName')}. All rights reserved.</p>
         </div>
       </div>

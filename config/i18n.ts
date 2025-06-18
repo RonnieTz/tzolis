@@ -13,6 +13,7 @@ const resources = {
       contact: en.contact,
       login: en.login,
       admin: en.admin,
+      terms: en.terms,
     },
   },
   gr: {
@@ -24,6 +25,7 @@ const resources = {
       contact: gr.contact,
       login: gr.login,
       admin: gr.admin,
+      terms: gr.terms,
     },
   },
 };
