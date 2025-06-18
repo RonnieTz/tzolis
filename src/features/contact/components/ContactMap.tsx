@@ -61,13 +61,13 @@ function MapComponent({
               Tzolis Welding Services
             </h3>
             <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 14px;">
-              📍 123 Industrial Street, Athens, Greece
+              📍 Moshohori, Lamia, Greece
             </p>
             <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 14px;">
-              📞 +30 210 123 4567
+              📞 22310 81394
             </p>
             <p style="margin: 0; color: #6b7280; font-size: 14px;">
-              ✉️ info@tzoliswelding.gr
+              ✉️ contact@tzolis.gr
             </p>
           </div>
         `,

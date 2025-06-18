@@ -81,7 +81,7 @@ export default function AboutPage() {
                 <div className="text-3xl md:text-4xl font-bold mb-2">
                   {stat.number}
                 </div>
-                <div className="text-lg opacity-90">{stat.label}</div>
+                <div className="text-lg text-white">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
               {t('about.services')}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
               {t('about.servicesDescription')}
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-semibold mb-3 text-gray-800">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed">
                   {service.description}
                 </p>
               </motion.div>
@@ -138,10 +138,10 @@ export default function AboutPage() {
                 <div className="flex items-start space-x-4">
                   <Shield className="w-8 h-8 text-orange-500 mt-1" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800">
                       {t('about.commitment.quality.title')}
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-700">
                       {t('about.commitment.quality.description')}
                     </p>
                   </div>
@@ -149,10 +149,10 @@ export default function AboutPage() {
                 <div className="flex items-start space-x-4">
                   <Award className="w-8 h-8 text-orange-500 mt-1" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800">
                       {t('about.commitment.certified.title')}
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-700">
                       {t('about.commitment.certified.description')}
                     </p>
                   </div>
@@ -160,10 +160,10 @@ export default function AboutPage() {
                 <div className="flex items-start space-x-4">
                   <Users className="w-8 h-8 text-orange-500 mt-1" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800">
                       {t('about.commitment.customer.title')}
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-700">
                       {t('about.commitment.customer.description')}
                     </p>
                   </div>
@@ -180,7 +180,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-bold text-gray-800 mb-4">
                 {t('about.whyChoose.title')}
               </h3>
-              <ul className="space-y-3 text-gray-600">
+              <ul className="space-y-3 text-gray-800">
                 <li className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>{t('about.whyChoose.points.experience')}</span>

@@ -12,14 +12,14 @@ export default function Contact() {
     {
       icon: <Phone className="w-6 h-6" />,
       title: t('home.contact.phone.title'),
-      value: '+30 210 123 4567',
-      href: 'tel:+302101234567',
+      value: '22310 81394',
+      href: 'tel:+302231081394',
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: t('home.contact.email.title'),
-      value: 'info@tzoliswelding.gr',
-      href: 'mailto:info@tzoliswelding.gr',
+      value: 'contact@tzolis.gr',
+      href: 'mailto:contact@tzolis.gr',
     },
     {
       icon: <MapPin className="w-6 h-6" />,
@@ -109,7 +109,7 @@ export default function Contact() {
                 {t('home.contact.cta.form')}
               </Link>
               <a
-                href="tel:+302101234567"
+                href="tel:+30 22310 81394"
                 className="block w-full text-center px-6 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold rounded-lg transition-colors duration-200"
               >
                 {t('home.contact.cta.call')}

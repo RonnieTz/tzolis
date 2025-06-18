@@ -42,7 +42,7 @@ export default function Hero() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <a
-                href="tel:+302101234567"
+                href="tel:+30 22310 81394"
                 className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold rounded-lg transition-colors duration-200"
               >
                 <Phone className="mr-2 w-5 h-5" />
