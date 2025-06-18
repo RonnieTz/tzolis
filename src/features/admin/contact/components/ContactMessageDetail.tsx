@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   Phone,
   Calendar,
@@ -22,8 +23,11 @@ export default function ContactMessageDetail({
   onMarkAsRead,
   onDeleteMessage,
 }: ContactMessageDetailProps) {
+  const { t, i18n } = useTranslation();
+
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    const locale = i18n.language === 'gr' ? 'el-GR' : 'en-US';
+    return new Date(dateString).toLocaleDateString(locale, {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -36,7 +40,7 @@ export default function ContactMessageDetail({
     return (
       <div className="bg-white rounded-lg shadow p-6 text-center text-gray-500">
         <Mail className="w-16 h-16 mx-auto mb-4 opacity-50" />
-        <p>Select a message to view details</p>
+        <p>{t('admin.selectMessage')}</p>
       </div>
     );
   }
@@ -69,7 +73,7 @@ export default function ContactMessageDetail({
                 : 'bg-orange-100 text-orange-800 hover:bg-orange-200'
             }`}
           >
-            {message.isRead ? 'Mark as Unread' : 'Mark as Read'}
+            {message.isRead ? t('admin.markAsUnread') : t('admin.markAsRead')}
           </button>
           <button
             onClick={() => onDeleteMessage(message._id)}
@@ -81,7 +85,7 @@ export default function ContactMessageDetail({
             ) : (
               <Trash2 className="w-3 h-3" />
             )}
-            <span>Delete</span>
+            <span>{t('admin.delete')}</span>
           </button>
         </div>
       </div>
@@ -111,7 +115,9 @@ export default function ContactMessageDetail({
         <div className="flex items-start space-x-3">
           <MessageSquare className="w-5 h-5 text-gray-400 mt-1" />
           <div className="flex-1">
-            <h4 className="font-medium text-gray-900 mb-2">Message</h4>
+            <h4 className="font-medium text-gray-900 mb-2">
+              {t('admin.message')}
+            </h4>
             <div className="bg-gray-50 p-4 rounded-lg">
               <p className="text-gray-700 whitespace-pre-wrap">
                 {message.message}
@@ -127,14 +133,14 @@ export default function ContactMessageDetail({
             href={`mailto:${message.email}?subject=Re: ${message.subject}`}
             className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
           >
-            Reply via Email
+            {t('admin.replyViaEmail')}
           </a>
           {message.phone && (
             <a
               href={`tel:${message.phone}`}
               className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
             >
-              Call
+              {t('admin.call')}
             </a>
           )}
         </div>

@@ -58,7 +58,7 @@ export default function GalleryGroupsPanel({
             className="bg-orange-500 text-white p-2 rounded-lg hover:bg-orange-600 transition-colors w-full sm:w-auto flex items-center justify-center"
           >
             <Plus size={20} />
-            <span className="ml-2 sm:hidden">Add Gallery</span>
+            <span className="ml-2 sm:hidden">{t('admin.addGallery')}</span>
           </button>
         </div>
 
@@ -77,7 +77,7 @@ export default function GalleryGroupsPanel({
             <div className="space-y-3">
               <input
                 type="text"
-                placeholder="English Name"
+                placeholder={t('admin.englishName')}
                 value={newGroup.name}
                 onChange={(e) =>
                   setNewGroup({ ...newGroup, name: e.target.value })
@@ -87,7 +87,7 @@ export default function GalleryGroupsPanel({
               />
               <input
                 type="text"
-                placeholder="Greek Name"
+                placeholder={t('admin.greekName')}
                 value={newGroup.nameGr}
                 onChange={(e) =>
                   setNewGroup({ ...newGroup, nameGr: e.target.value })
@@ -96,7 +96,7 @@ export default function GalleryGroupsPanel({
                 required
               />
               <textarea
-                placeholder="English Description (optional)"
+                placeholder={t('admin.englishDescription')}
                 value={newGroup.description}
                 onChange={(e) =>
                   setNewGroup({
@@ -108,7 +108,7 @@ export default function GalleryGroupsPanel({
                 rows={2}
               />
               <textarea
-                placeholder="Greek Description (optional)"
+                placeholder={t('admin.greekDescription')}
                 value={newGroup.descriptionGr}
                 onChange={(e) =>
                   setNewGroup({
@@ -124,14 +124,14 @@ export default function GalleryGroupsPanel({
                   type="submit"
                   className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm sm:text-base w-full sm:w-auto"
                 >
-                  Create
+                  {t('admin.create')}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowCreateForm(false)}
                   className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base w-full sm:w-auto"
                 >
-                  Cancel
+                  {t('admin.cancel')}
                 </button>
               </div>
             </div>
@@ -158,7 +158,7 @@ export default function GalleryGroupsPanel({
                     {i18n.language === 'gr' ? group.nameGr : group.name}
                   </div>
                   <div className="text-xs sm:text-sm text-gray-500">
-                    {group.images.length} images
+                    {group.images.length} {t('admin.images')}
                   </div>
                 </div>
                 <button

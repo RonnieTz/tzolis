@@ -56,14 +56,14 @@ export default function AdminPage() {
 
   if (galleryGroups.loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading admin panel...</div>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-xl text-white">Loading admin panel...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-24 pb-8">
+    <div className="min-h-screen bg-gray-900 pt-24 pb-8">
       <div className="container mx-auto px-4">
         <AdminHeader
           onChangePasswordClick={() =>

@@ -16,7 +16,7 @@ export default function AdminHeader({
 
   return (
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 space-y-4 sm:space-y-0">
-      <h1 className="text-2xl sm:text-4xl font-bold text-gray-800">
+      <h1 className="text-2xl sm:text-4xl font-bold text-white">
         {t('admin.title')}
       </h1>
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
@@ -25,16 +25,16 @@ export default function AdminHeader({
           className="flex items-center justify-center sm:justify-start space-x-2 bg-green-500 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm sm:text-base"
         >
           <Mail size={18} className="sm:w-5 sm:h-5" />
-          <span className="hidden sm:inline">Contact Messages</span>
-          <span className="sm:hidden">Messages</span>
+          <span className="hidden sm:inline">{t('admin.contactMessages')}</span>
+          <span className="sm:hidden">{t('admin.messages')}</span>
         </button>
         <button
           onClick={onChangePasswordClick}
           className="flex items-center justify-center sm:justify-start space-x-2 bg-blue-500 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm sm:text-base"
         >
           <Key size={18} className="sm:w-5 sm:h-5" />
-          <span className="hidden sm:inline">Change Password</span>
-          <span className="sm:hidden">Password</span>
+          <span className="hidden sm:inline">{t('admin.changePassword')}</span>
+          <span className="sm:hidden">{t('admin.password')}</span>
         </button>
         <button
           onClick={onLogout}

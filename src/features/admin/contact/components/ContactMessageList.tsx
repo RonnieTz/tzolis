@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Mail, MailOpen, Trash2 } from 'lucide-react';
 import { ContactMessage } from './types';
 
@@ -19,8 +20,11 @@ export default function ContactMessageList({
   onDeleteMessage,
   onMarkAsRead,
 }: ContactMessageListProps) {
+  const { t, i18n } = useTranslation();
+
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    const locale = i18n.language === 'gr' ? 'el-GR' : 'en-US';
+    return new Date(dateString).toLocaleDateString(locale, {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -33,7 +37,7 @@ export default function ContactMessageList({
     return (
       <div className="text-center py-8 text-gray-500">
         <Mail className="w-12 h-12 mx-auto mb-4 opacity-50" />
-        <p>No messages yet</p>
+        <p>{t('admin.noMessagesYet')}</p>
       </div>
     );
   }
@@ -82,7 +86,7 @@ export default function ContactMessageList({
                 }}
                 disabled={deleting === message._id}
                 className="text-red-500 hover:text-red-700 p-1 transition-colors disabled:opacity-50"
-                title="Delete message"
+                title={t('admin.deleteMessage')}
               >
                 {deleting === message._id ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-500"></div>
