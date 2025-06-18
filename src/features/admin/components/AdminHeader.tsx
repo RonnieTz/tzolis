@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
-import { LogOut, Key, Mail } from 'lucide-react';
+import { LogOut, Key, Mail, Settings } from 'lucide-react';
 
 interface AdminHeaderProps {
   onChangePasswordClick: () => void;
@@ -20,6 +20,16 @@ export default function AdminHeader({
         {t('admin.title')}
       </h1>
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+        <button
+          onClick={() => router.push('/admin/business-settings')}
+          className="flex items-center justify-center sm:justify-start space-x-2 bg-purple-500 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors text-sm sm:text-base"
+        >
+          <Settings size={18} className="sm:w-5 sm:h-5" />
+          <span className="hidden sm:inline">
+            {t('admin.businessSettings')}
+          </span>
+          <span className="sm:hidden">{t('admin.settings')}</span>
+        </button>
         <button
           onClick={() => router.push('/admin/contact')}
           className="flex items-center justify-center sm:justify-start space-x-2 bg-green-500 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm sm:text-base"

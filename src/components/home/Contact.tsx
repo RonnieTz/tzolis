@@ -4,36 +4,73 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { useBusinessSettings } from '@/features/contact/hooks/useBusinessSettings';
 
 export default function Contact() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { settings, loading } = useBusinessSettings();
 
+  // Use dynamic data if available, fallback to static data
   const contactInfo = [
     {
       icon: <Phone className="w-6 h-6" />,
       title: t('home.contact.phone.title'),
-      value: '22310 81394',
-      href: 'tel:+302231081394',
+      value: settings?.phone?.[0] || '+30 22310 81394',
+      href: `tel:${settings?.phone?.[0]?.replace(/\s/g, '') || '+302231081394'}`,
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: t('home.contact.email.title'),
-      value: 'contact@tzolis.gr',
-      href: 'mailto:contact@tzolis.gr',
+      value: settings?.email?.[0] || 'contact@tzolis.gr',
+      href: `mailto:${settings?.email?.[0] || 'contact@tzolis.gr'}`,
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: t('home.contact.address.title'),
-      value: t('home.contact.address.value'),
+      value:
+        settings?.address?.line1 && settings?.address?.line2
+          ? `${settings.address.line1}, ${settings.address.line2}`
+          : t('home.contact.address.value'),
       href: null,
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: t('home.contact.hours.title'),
-      value: t('home.contact.hours.value'),
+      value: getBusinessHoursString(),
       href: null,
     },
   ];
+
+  function getBusinessHoursString() {
+    if (loading) return t('home.contact.hours.value');
+
+    if (settings?.businessHours) {
+      const locale = i18n.language === 'gr' ? 'gr' : 'en';
+
+      // Find weekday hours (Monday-Friday)
+      const weekdayHours = settings.businessHours.filter((h) =>
+        ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].includes(h.day)
+      );
+
+      // Check if all weekdays have the same hours
+      const firstWeekday = weekdayHours[0];
+      const allSameHours = weekdayHours.every(
+        (h) =>
+          h.isOpen === firstWeekday?.isOpen &&
+          h.openTime === firstWeekday?.openTime &&
+          h.closeTime === firstWeekday?.closeTime
+      );
+
+      if (allSameHours && firstWeekday?.isOpen) {
+        const dayRange =
+          locale === 'en' ? 'Monday - Friday' : 'Δευτέρα - Παρασκευή';
+        return `${dayRange}: ${firstWeekday.openTime} - ${firstWeekday.closeTime}`;
+      }
+    }
+
+    // Fallback to translation
+    return t('home.contact.hours.value');
+  }
 
   return (
     <section id="contact" className="py-20 bg-gray-900 text-white">
@@ -109,7 +146,7 @@ export default function Contact() {
                 {t('home.contact.cta.form')}
               </Link>
               <a
-                href="tel:+30 22310 81394"
+                href={contactInfo[0].href || undefined}
                 className="block w-full text-center px-6 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold rounded-lg transition-colors duration-200"
               >
                 {t('home.contact.cta.call')}
