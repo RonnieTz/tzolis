@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useContactMessages } from '@/features/admin/contact/hooks/useContactMessages';
 import ContactMessageList from '@/features/admin/contact/components/ContactMessageList';
 import ContactMessageDetail from '@/features/admin/contact/components/ContactMessageDetail';
+import ConfirmationDialog from '@/features/admin/components/ConfirmationDialog';
 
 export default function ContactMessagesPage() {
   const { t } = useTranslation();
@@ -17,6 +18,9 @@ export default function ContactMessagesPage() {
     selectMessage,
     markAsRead,
     deleteMessage,
+    confirmDeleteMessage,
+    cancelDeleteMessage,
+    showDeleteConfirm,
   } = useContactMessages();
 
   if (loading) {
@@ -28,14 +32,15 @@ export default function ContactMessagesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 pt-24 pb-6 px-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
           className="mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {t('admin.contactMessages')}
           </h1>
           <p className="text-gray-300">
@@ -71,6 +76,16 @@ export default function ContactMessagesPage() {
             />
           </div>
         </div>
+
+        {/* Message Delete Confirmation */}
+        <ConfirmationDialog
+          isOpen={showDeleteConfirm}
+          title={t('admin.confirmDelete')}
+          message={t('admin.confirmDeleteMessage')}
+          onConfirm={confirmDeleteMessage}
+          onCancel={cancelDeleteMessage}
+          variant="danger"
+        />
       </div>
     </div>
   );

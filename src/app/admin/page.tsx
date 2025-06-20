@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { useGalleryGroups } from '@/features/admin/hooks/useGalleryGroups';
 import { useFileUpload } from '@/features/admin/hooks/useFileUpload';
 import { usePasswordManagement } from '@/features/admin/hooks/usePasswordManagement';
@@ -10,8 +11,11 @@ import ChangePasswordModal from '@/features/admin/components/ChangePasswordModal
 import GalleryGroupsPanel from '@/features/admin/components/GalleryGroupsPanel';
 import GalleryImagesPanel from '@/features/admin/components/GalleryImagesPanel';
 import AdminImageModal from '@/features/admin/components/AdminImageModal';
+import VisitorStatsPanel from '@/features/admin/components/VisitorStatsPanel';
+import ConfirmationDialog from '@/features/admin/components/ConfirmationDialog';
 
 export default function AdminPage() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   // Custom hooks
@@ -28,16 +32,6 @@ export default function AdminPage() {
     } catch (error) {
       console.error('Logout error:', error);
     }
-  };
-
-  const handlePasswordFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await passwordManagement.changePassword();
-  };
-
-  const handlePasswordModalClose = () => {
-    passwordManagement.setShowChangePassword(false);
-    passwordManagement.resetPasswordForm();
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,23 +57,19 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 pt-24 pb-8">
-      <div className="container mx-auto px-4">
-        <AdminHeader
-          onChangePasswordClick={() =>
-            passwordManagement.setShowChangePassword(true)
-          }
-          onLogout={handleLogout}
-        />
+    <div className="min-h-screen bg-gray-900 pt-21">
+      <AdminHeader
+        onChangePasswordClick={() =>
+          passwordManagement.setShowChangePassword(true)
+        }
+        onLogout={handleLogout}
+      />
 
-        <ChangePasswordModal
-          show={passwordManagement.showChangePassword}
-          onClose={handlePasswordModalClose}
-          onSubmit={handlePasswordFormSubmit}
-          passwordForm={passwordManagement.passwordForm}
-          onFormChange={passwordManagement.handlePasswordFormChange}
-          loading={passwordManagement.passwordLoading}
-        />
+      <div className="container mx-auto px-4 py-8">
+        {/* Visitor Statistics Panel */}
+        <div className="mb-8">
+          <VisitorStatsPanel />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <GalleryGroupsPanel
@@ -107,9 +97,31 @@ export default function AdminPage() {
           selectedImageIndex={imageModal.selectedImageIndex}
           currentGroup={galleryGroups.currentGroup}
           onClose={imageModal.closeModal}
-          onPrevious={imageModal.goToPrevious}
           onNext={imageModal.goToNext}
+          onPrevious={imageModal.goToPrevious}
           onDeleteImage={handleDeleteImage}
+        />
+
+        <ChangePasswordModal
+          show={passwordManagement.showChangePassword}
+          onClose={() => passwordManagement.setShowChangePassword(false)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            passwordManagement.changePassword();
+          }}
+          passwordForm={passwordManagement.passwordForm}
+          onFormChange={passwordManagement.handlePasswordFormChange}
+          loading={passwordManagement.passwordLoading}
+        />
+
+        {/* Gallery Group Delete Confirmation */}
+        <ConfirmationDialog
+          isOpen={galleryGroups.showDeleteConfirm}
+          title={t('admin.confirmDelete')}
+          message={t('admin.confirmDeleteGallery')}
+          onConfirm={galleryGroups.confirmDeleteGroup}
+          onCancel={galleryGroups.cancelDeleteGroup}
+          variant="danger"
         />
       </div>
     </div>

@@ -29,6 +29,13 @@ export const admin = {
   message: 'Message',
   replyViaEmail: 'Reply via Email',
   call: 'Call',
+  // Confirmation dialogs
+  confirmDelete: 'Confirm Delete',
+  confirmDeleteGallery: 'Are you sure you want to delete this gallery group?',
+  confirmDeleteMessage:
+    'Are you sure you want to delete this message? This action cannot be undone.',
+  confirmDeleteVisitorData:
+    'Are you sure you want to delete visitor data for {{period}}?',
   // Business Settings
   businessSettings: 'Business Settings',
   businessHours: 'Business Hours',
@@ -56,4 +63,30 @@ export const admin = {
   save: 'Save Changes',
   saving: 'Saving...',
   settings: 'Settings',
+  // Visitor Statistics
+  visitorStats: {
+    title: 'Visitor Statistics',
+    refresh: 'Refresh',
+    retry: 'Retry',
+    error: 'Error',
+    periods: {
+      hour: 'Past Hour',
+      day: 'Past Day',
+      week: 'Past Week',
+      month: 'Past Month',
+      year: 'Past Year',
+      allTime: 'All Time',
+    },
+    metrics: {
+      totalVisits: 'Total Visits',
+      uniqueVisitors: 'Unique Visitors',
+    },
+    descriptions: {
+      totalVisits: 'All page views tracked',
+      uniqueVisitors: 'Number of distinct IP addresses',
+      realTime: 'Data updates in real-time',
+      deleteInfo: 'Use delete buttons to remove data for specific time periods',
+    },
+    deleteConfirm: 'Delete {{period}} data',
+  },
 };

@@ -29,6 +29,14 @@ export const admin = {
   message: 'Μήνυμα',
   replyViaEmail: 'Απάντηση μέσω Email',
   call: 'Κλήση',
+  // Confirmation dialogs
+  confirmDelete: 'Επιβεβαίωση Διαγραφής',
+  confirmDeleteGallery:
+    'Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή την ομάδα συλλογής;',
+  confirmDeleteMessage:
+    'Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το μήνυμα; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.',
+  confirmDeleteVisitorData:
+    'Είστε σίγουροι ότι θέλετε να διαγράψετε τα δεδομένα επισκεπτών για {{period}};',
   // Business Settings
   businessSettings: 'Ρυθμίσεις Επιχείρησης',
   businessHours: 'Ωράριο Λειτουργίας',
@@ -56,4 +64,31 @@ export const admin = {
   save: 'Αποθήκευση Αλλαγών',
   saving: 'Αποθήκευση...',
   settings: 'Ρυθμίσεις',
+  // Visitor Statistics
+  visitorStats: {
+    title: 'Στατιστικά Επισκεπτών',
+    refresh: 'Ανανέωση',
+    retry: 'Προσπάθεια Ξανά',
+    error: 'Σφάλμα',
+    periods: {
+      hour: 'Τελευταία Ώρα',
+      day: 'Τελευταία Ημέρα',
+      week: 'Τελευταία Εβδομάδα',
+      month: 'Τελευταίος Μήνας',
+      year: 'Τελευταίος Χρόνος',
+      allTime: 'Όλοι οι Χρόνοι',
+    },
+    metrics: {
+      totalVisits: 'Συνολικές Επισκέψεις',
+      uniqueVisitors: 'Μοναδικοί Επισκέπτες',
+    },
+    descriptions: {
+      totalVisits: 'Όλες οι προβολές σελίδων που καταγράφηκαν',
+      uniqueVisitors: 'Αριθμός διακριτών διευθύνσεων IP',
+      realTime: 'Τα δεδομένα ενημερώνονται σε πραγματικό χρόνο',
+      deleteInfo:
+        'Χρησιμοποιήστε τα κουμπιά διαγραφής για να αφαιρέσετε δεδομένα για συγκεκριμένες χρονικές περιόδους',
+    },
+    deleteConfirm: 'Διαγραφή δεδομένων {{period}}',
+  },
 };

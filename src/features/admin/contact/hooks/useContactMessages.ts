@@ -8,6 +8,8 @@ export function useContactMessages() {
     null
   );
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [messageToDelete, setMessageToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMessages();
@@ -51,28 +53,26 @@ export function useContactMessages() {
   };
 
   const deleteMessage = async (id: string) => {
-    if (
-      !confirm(
-        'Are you sure you want to delete this message? This action cannot be undone.'
-      )
-    ) {
-      return;
-    }
+    setMessageToDelete(id);
+    setShowDeleteConfirm(true);
+  };
 
-    setDeleting(id);
+  const confirmDeleteMessage = async () => {
+    if (!messageToDelete) return;
+
+    setDeleting(messageToDelete);
     try {
       const response = await fetch('/api/contact/messages', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ id: messageToDelete }),
       });
 
       if (response.ok) {
-        setMessages(messages.filter((msg) => msg._id !== id));
-
-        if (selectedMessage && selectedMessage._id === id) {
+        setMessages(messages.filter((msg) => msg._id !== messageToDelete));
+        if (selectedMessage && selectedMessage._id === messageToDelete) {
           setSelectedMessage(null);
         }
       } else {
@@ -84,7 +84,13 @@ export function useContactMessages() {
       alert('Error deleting message');
     } finally {
       setDeleting(null);
+      setMessageToDelete(null);
     }
+  };
+
+  const cancelDeleteMessage = () => {
+    setMessageToDelete(null);
+    setShowDeleteConfirm(false);
   };
 
   const selectMessage = (message: ContactMessage) => {
@@ -105,5 +111,9 @@ export function useContactMessages() {
     selectMessage,
     markAsRead,
     deleteMessage,
+    confirmDeleteMessage,
+    cancelDeleteMessage,
+    showDeleteConfirm,
+    messageToDelete,
   };
 }

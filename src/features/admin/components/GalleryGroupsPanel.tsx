@@ -48,9 +48,9 @@ export default function GalleryGroupsPanel({
 
   return (
     <div className="lg:col-span-1">
-      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+      <div className="bg-gray-800 rounded-lg shadow p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 space-y-2 sm:space-y-0">
-          <h2 className="text-lg sm:text-xl font-semibold">
+          <h2 className="text-lg sm:text-xl font-semibold text-white">
             {t('admin.galleries')}
           </h2>
           <button
@@ -66,12 +66,12 @@ export default function GalleryGroupsPanel({
         {showCreateForm && (
           <motion.form
             onSubmit={handleCreateGroup}
-            className="mb-6 p-3 sm:p-4 border rounded-lg"
+            className="mb-6 p-3 sm:p-4 border border-gray-600 rounded-lg bg-gray-700"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            <h3 className="text-base sm:text-lg font-medium mb-3">
+            <h3 className="text-base sm:text-lg font-medium mb-3 text-white">
               {t('admin.createGroup')}
             </h3>
             <div className="space-y-3">
@@ -82,7 +82,7 @@ export default function GalleryGroupsPanel({
                 onChange={(e) =>
                   setNewGroup({ ...newGroup, name: e.target.value })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
+                className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-600 text-white placeholder-gray-300 text-sm sm:text-base"
                 required
               />
               <input
@@ -92,7 +92,7 @@ export default function GalleryGroupsPanel({
                 onChange={(e) =>
                   setNewGroup({ ...newGroup, nameGr: e.target.value })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
+                className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-600 text-white placeholder-gray-300 text-sm sm:text-base"
                 required
               />
               <textarea
@@ -104,7 +104,7 @@ export default function GalleryGroupsPanel({
                     description: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
+                className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-600 text-white placeholder-gray-300 text-sm sm:text-base"
                 rows={2}
               />
               <textarea
@@ -116,7 +116,7 @@ export default function GalleryGroupsPanel({
                     descriptionGr: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 text-sm sm:text-base"
+                className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-600 text-white placeholder-gray-300 text-sm sm:text-base"
                 rows={2}
               />
               <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
@@ -145,8 +145,8 @@ export default function GalleryGroupsPanel({
               key={group._id}
               className={`p-3 rounded-lg cursor-pointer transition-colors ${
                 selectedGroup === group._id
-                  ? 'bg-orange-100 border-orange-500 border'
-                  : 'bg-gray-50 hover:bg-gray-100'
+                  ? 'bg-orange-600 border-orange-400 border text-white'
+                  : 'bg-gray-700 hover:bg-gray-600 text-white'
               }`}
             >
               <div
@@ -157,7 +157,13 @@ export default function GalleryGroupsPanel({
                   <div className="font-medium text-sm sm:text-base truncate">
                     {i18n.language === 'gr' ? group.nameGr : group.name}
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-500">
+                  <div
+                    className={`text-xs sm:text-sm ${
+                      selectedGroup === group._id
+                        ? 'text-orange-200'
+                        : 'text-gray-400'
+                    }`}
+                  >
                     {group.images.length} {t('admin.images')}
                   </div>
                 </div>
@@ -166,7 +172,7 @@ export default function GalleryGroupsPanel({
                     e.stopPropagation();
                     handleDeleteGroup(group._id);
                   }}
-                  className="text-red-500 hover:text-red-700 p-1 ml-2 flex-shrink-0"
+                  className="text-red-400 hover:text-red-300 p-1 ml-2 flex-shrink-0"
                 >
                   <Trash2 size={16} />
                 </button>

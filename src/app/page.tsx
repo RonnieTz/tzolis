@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { generateMetadata } from '@/lib/metadata';
+import HomePageClient from './HomePageClient';
 
 export const metadata: Metadata = generateMetadata({
   title: {
@@ -17,20 +18,6 @@ export const metadata: Metadata = generateMetadata({
   url: '/',
 });
 
-import Hero from '@/components/home/Hero';
-import Services from '@/components/home/Services';
-import About from '@/components/home/About';
-import Contact from '@/components/home/Contact';
-import PrivacyNotice from '@/components/home/PrivacyNotice';
-
 export default function HomePage() {
-  return (
-    <main>
-      <Hero />
-      <Services />
-      <About />
-      <Contact />
-      <PrivacyNotice />
-    </main>
-  );
+  return <HomePageClient />;
 }

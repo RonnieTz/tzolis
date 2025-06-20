@@ -5,6 +5,8 @@ export function useGalleryGroups() {
   const [groups, setGroups] = useState<GalleryGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [groupToDelete, setGroupToDelete] = useState<string | null>(null);
 
   const fetchGroups = async () => {
     try {
@@ -41,20 +43,26 @@ export function useGalleryGroups() {
     }
   };
 
-  const deleteGroup = async (groupId: string) => {
-    if (!confirm('Are you sure you want to delete this gallery group?'))
-      return false;
+  const deleteGroup = async (groupId: string): Promise<boolean> => {
+    setGroupToDelete(groupId);
+    setShowDeleteConfirm(true);
+    return true; // Return true to indicate the confirmation dialog was shown
+  };
+
+  const confirmDeleteGroup = async () => {
+    if (!groupToDelete) return false;
 
     try {
-      const response = await fetch(`/api/gallery/groups/${groupId}`, {
+      const response = await fetch(`/api/gallery/groups/${groupToDelete}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
         await fetchGroups();
-        if (selectedGroup === groupId) {
+        if (selectedGroup === groupToDelete) {
           setSelectedGroup(null);
         }
+        setGroupToDelete(null);
         return true;
       }
       return false;
@@ -62,6 +70,11 @@ export function useGalleryGroups() {
       console.error('Error deleting group:', error);
       return false;
     }
+  };
+
+  const cancelDeleteGroup = () => {
+    setGroupToDelete(null);
+    setShowDeleteConfirm(false);
   };
 
   useEffect(() => {
@@ -79,5 +92,9 @@ export function useGalleryGroups() {
     fetchGroups,
     createGroup,
     deleteGroup,
+    confirmDeleteGroup,
+    cancelDeleteGroup,
+    showDeleteConfirm,
+    groupToDelete,
   };
 }
